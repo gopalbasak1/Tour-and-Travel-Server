@@ -1,24 +1,42 @@
-import globals from "globals";
-import pluginJs from "@eslint/js";
-import tseslint from "typescript-eslint";
-import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
+/* eslint-disable prettier/prettier */
+import globals from 'globals'
+import js from '@eslint/js'
+import ts from '@typescript-eslint/eslint-plugin'
+import tsParser from '@typescript-eslint/parser'
+import prettier from 'eslint-plugin-prettier'
 
-/** @type {import('eslint').Linter.Config[]} */
-export default [
-  { files: ["**/*.{js,mjs,cjs,ts}"] },
-  { languageOptions: { globals: { ...globals.browser, ...globals.node } } },
-
-  {
-    ignores: ["node_modules", "dist"],
-    rules: {
-      "no-unused-vars": "error",
-      "no-undef": "error",
-      "no-unused-expressions": "error",
-      "prefer-const": "error",
-      "no-console": "warn",
+/** @type {import('eslint').Linter.Config} */
+export default {
+  root: true,
+  env: {
+    browser: true,
+    node: true,
+  },
+  parser: tsParser,
+  parserOptions: {
+    ecmaVersion: 2020,
+    sourceType: 'module',
+    ecmaFeatures: {
+      jsx: true,
     },
   },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
-  eslintPluginPrettierRecommended,
-];
+  plugins: ['@typescript-eslint', 'prettier'],
+  extends: [
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:prettier/recommended',
+  ],
+  rules: {
+    'no-unused-vars': 'error',
+    'no-undef': 'error',
+    'no-unused-expressions': 'error',
+    'prefer-const': 'error',
+    'no-console': 'warn',
+    'prettier/prettier': 'error', // Ensures Prettier issues are surfaced
+  },
+  ignorePatterns: ['node_modules', 'dist'], // Ignore folders
+  globals: {
+    ...globals.browser,
+    ...globals.node,
+  },
+}
