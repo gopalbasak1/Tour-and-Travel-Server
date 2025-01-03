@@ -26,11 +26,11 @@ const createUser = catchAsync(async (req, res) => {
 })
 
 const getUser = catchAsync(async (req, res) => {
-  const result = await userService.getUser()
+  const result = await userService.getUserFromDB()
 
   sendResponse(res, {
     statusCode: StatusCodes.OK,
-    message: 'Users getting successfully',
+    message: 'Users retrieved successfully',
     data: result,
   })
 })
@@ -71,7 +71,7 @@ const deleteUser = catchAsync(async (req, res) => {
   })
 })
 
-export const userController = {
+export const UserController = {
   createUser,
   getUser,
   getSingleUser,

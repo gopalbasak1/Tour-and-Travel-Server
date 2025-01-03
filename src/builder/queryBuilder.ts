@@ -29,7 +29,7 @@ class QueryBuilder<T> {
     const searchTerm = this?.query?.searchTerm
 
     this.modelQuery = this.modelQuery.find({
-      $or: searchableFields.map((field: string) => ({
+      $or: searchableFields.map((field: any) => ({
         [field]: { $regex: searchTerm, $options: 'i' },
       })),
     } as FilterQuery<T>)
@@ -45,6 +45,7 @@ class QueryBuilder<T> {
       'page',
       'limit',
       'sortOrder',
+      'sortBy',
       'fields',
     ]
 

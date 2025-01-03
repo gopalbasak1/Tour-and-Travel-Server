@@ -7,7 +7,7 @@ const createUser = async (payload: IUser): Promise<IUser> => {
   return result
 }
 
-const getUser = async () => {
+const getUserFromDB = async () => {
   const result = await User.find()
   return result
 }
@@ -32,7 +32,7 @@ const deleteUser = async (id: string) => {
 
 export const userService = {
   createUser,
-  getUser,
+  getUserFromDB,
   getSingleUser,
   updateUser,
   deleteUser,
